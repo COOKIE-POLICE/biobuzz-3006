@@ -5,15 +5,18 @@ package org.firstinspires.ftc.teamcode;
 // This way in TeleOp I can interrupt auto pathing with joystick and vice versa.
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
 
+import org.firstinspires.ftc.teamcode.pedro.Constants;
+
 public class FollowerSubsystem {
     private final Follower follower;
-    public FollowerSubsystem(Follower follower) {
-        this.follower = follower;
+    public FollowerSubsystem() {
+        this.follower = Constants.create(hardwareMap);
     }
     public void robotCentric() {
         ManualDrive.driveOrHold(
