@@ -1,0 +1,14 @@
+package org.firstinspires.ftc.teamcode.pedro;
+
+
+import com.seattlesolvers.solverslib.command.CommandBase;
+public class RobotCentricCommand extends CommandBase {
+    private final FollowerSubsystem followerSubsystem;
+    public RobotCentricCommand(FollowerSubsystem followerSubsystem) {
+        this.followerSubsystem = followerSubsystem;
+    }
+    @Override
+    public void execute() {
+        followerSubsystem.robotCentric();
+    }
+}
