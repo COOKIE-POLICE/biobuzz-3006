@@ -2,6 +2,7 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.dairy.foundation/releases/'}
     google() // Needed for androidx
+    maven { url = "https://mymaven.bylazar.com/releases" }
 }
 
 dependencies {
@@ -20,4 +21,6 @@ dependencies {
 
     implementation "org.solverslib:core:0.3.6"
     implementation "org.solverslib:pedroPathing:0.3.6"
+
+    implementation "com.bylazar:docs:1.0.5"
 }
