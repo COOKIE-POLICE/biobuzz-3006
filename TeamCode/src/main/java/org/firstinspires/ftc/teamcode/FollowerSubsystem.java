@@ -16,7 +16,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 public class FollowerSubsystem extends SubsystemBase {
-    private final Follower follower;
+    public final Follower follower;
     public FollowerSubsystem() {
         this.follower = Constants.create(hardwareMap);
     }
