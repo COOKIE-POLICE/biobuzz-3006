@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.controller.PIDFController;
 
 public class TunedMotor {
@@ -11,7 +10,7 @@ public class TunedMotor {
     public final PIDFController controller;
 
 
-    public TunedMotor(String deviceName, double p, double i, double d, double f) {
+    public TunedMotor(HardwareMap hardwareMap, String deviceName, double p, double i, double d, double f) {
         this.motor = hardwareMap.get(DcMotorEx.class, deviceName);
         this.controller = new PIDFController(p, i, d, f);
     }
