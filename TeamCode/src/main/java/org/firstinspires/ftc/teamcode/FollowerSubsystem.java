@@ -10,10 +10,12 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
+import com.seattlesolvers.solverslib.command.Subsystem;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-public class FollowerSubsystem {
+public class FollowerSubsystem extends SubsystemBase {
     private final Follower follower;
     public FollowerSubsystem() {
         this.follower = Constants.create(hardwareMap);

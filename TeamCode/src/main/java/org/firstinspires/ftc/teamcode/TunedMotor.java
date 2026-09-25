@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.seattlesolvers.solverslib.controller.PIDFController;
@@ -7,19 +9,19 @@ import com.seattlesolvers.solverslib.controller.PIDFController;
 public class TunedMotor {
     public final DcMotorEx motor;
     public final PIDFController controller;
-    public double targetVelocity;
 
-    public TunedMotor(DcMotorEx motor, double p, double i, double d, double f) {
-        this.motor = motor;
+
+    public TunedMotor(String deviceName, double p, double i, double d, double f) {
+        this.motor = hardwareMap.get(DcMotorEx.class, deviceName);
         this.controller = new PIDFController(p, i, d, f);
-        this.targetVelocity = 0.0;
     }
 
-    public void setTargetTicks(double ticks) {
-        this.targetVelocity = ticks;
-    }
-    public double getTicks() {
-        return this.motor.getVelocity();
+    public void update(double targetTicks) {
+        double currentTicks = motor.getVelocity();
+        double absoluteTarget = Math.abs(targetTicks);
+        double absoluteCurrent = Math.abs(currentTicks);
+        double direction = Math.signum(targetTicks);
+        motor.setPower(controller.calculate(absoluteCurrent, absoluteTarget) * direction);
     }
 
     public void setPIDF(double p, double i, double d, double f) {
@@ -32,13 +34,6 @@ public class TunedMotor {
 
     public void setDirection(DcMotorSimple.Direction direction) {
         motor.setDirection(direction);
-    }
-
-    public void update(double currentVelocity) {
-        double absoluteTarget = Math.abs(targetVelocity);
-        double absoluteCurrent = Math.abs(currentVelocity);
-        double direction = Math.signum(targetVelocity);
-        motor.setPower(controller.calculate(absoluteCurrent, absoluteTarget) * direction);
     }
 
     public boolean atSetPoint() {

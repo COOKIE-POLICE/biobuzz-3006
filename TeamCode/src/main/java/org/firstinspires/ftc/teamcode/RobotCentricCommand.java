@@ -6,6 +6,7 @@ public class RobotCentricCommand extends CommandBase {
     private final FollowerSubsystem followerSubsystem;
     public RobotCentricCommand(FollowerSubsystem followerSubsystem) {
         this.followerSubsystem = followerSubsystem;
+        addRequirements(followerSubsystem);
     }
     @Override
     public void execute() {
