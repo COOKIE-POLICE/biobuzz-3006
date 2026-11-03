@@ -10,6 +10,10 @@ import com.pedropathing.revhub.localizers.PinpointLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Preferences;
+
+import kotlin.jvm.internal.PackageReference;
+
 public class Constants {
     public static Follower create(HardwareMap h) {
         return new Follower(
@@ -20,10 +24,10 @@ public class Constants {
     }
     public static MecanumConfig mecanumConfig = new MecanumConfig(
             c -> {
-                c.frontLeftName.set("fl");
-                c.backLeftName.set("bl");
-                c.frontRightName.set("fr");
-                c.backRightName.set("br");
+                c.frontLeftName.set(Preferences.DeviceNames.LEFT_FRONT_MOTOR);
+                c.backLeftName.set(Preferences.DeviceNames.LEFT_REAR_MOTOR);
+                c.frontRightName.set(Preferences.DeviceNames.RIGHT_FRONT_MOTOR);
+                c.backRightName.set(Preferences.DeviceNames.RIGHT_BACK_MOTOR);
                 c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
                 c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
                 c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);

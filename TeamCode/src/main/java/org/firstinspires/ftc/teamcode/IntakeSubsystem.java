@@ -5,18 +5,28 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private final DcMotorEx intakeMotor;
+    private final DcMotorEx leftIntakeMotor;
+    private final DcMotorEx rightIntakeMotor;
+
     public IntakeSubsystem(HardwareMap hardwareMap) {
-        intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
+        leftIntakeMotor = hardwareMap.get(DcMotorEx.class, Preferences.DeviceNames.LEFT_INTAKE);
+        rightIntakeMotor = hardwareMap.get(DcMotorEx.class, Preferences.DeviceNames.RIGHT_INTAKE);
     }
+
     public void start() {
-        intakeMotor.setPower(1.0);
+
+        leftIntakeMotor.setPower(1.0);
+        rightIntakeMotor.setPower(1.0);
     }
+
     public void eject() {
-        intakeMotor.setPower(-1.0);
+        leftIntakeMotor.setPower(-1.0);
+        rightIntakeMotor.setPower(-1.0);
     }
+
     public void stop() {
-        intakeMotor.setPower(0.0);
+        leftIntakeMotor.setPower(0.0);
+        rightIntakeMotor.setPower(0.0);
     }
 
 
