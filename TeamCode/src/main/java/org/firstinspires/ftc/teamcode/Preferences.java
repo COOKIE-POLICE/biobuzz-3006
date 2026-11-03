@@ -58,5 +58,7 @@ public class Preferences {
     public static class Poses {
         public static final Pose redHiveSouth = new Pose(57.5, 56.5);
         public static final Pose redHiveNorth = new Pose(57.5, 84.5);
+        public static final Pose blueHiveSouth = new Pose(84, 55);
+        public static final Pose blueHiveNorth = new Pose(84.5, 82);
     }
 }
