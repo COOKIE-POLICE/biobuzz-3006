@@ -35,6 +35,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 @TeleOp(name = "Base TeleOp")
 public class BaseTeleOp extends CommandOpMode {
     GamepadEx gamepad = new GamepadEx(gamepad1);
+    private PIDFGrapher pidfGrapher;
     private FollowerSubsystem followerSubsystem;
     private LauncherSubsystem outtakeSubsystem;
     private IntakeSubsystem intakeSubsystem;
@@ -46,6 +47,7 @@ public class BaseTeleOp extends CommandOpMode {
         outtakeSubsystem = new LauncherSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
         blockerSubsystem = new BlockerSubsystem(hardwareMap);
+        pidfGrapher = new PIDFGrapher(telemetry);
 
         gamepad.getGamepadButton(Preferences.goToPoseButton).whenPressed(new GoToPoseCommand(followerSubsystem, Preferences.redHiveSouthSide));
         gamepad.getGamepadButton(Preferences.outtakeButton)
@@ -62,12 +64,12 @@ public class BaseTeleOp extends CommandOpMode {
         gamepad.getGamepadButton(Preferences.blockButton)
                 .whenPressed(new InstantCommand(() -> blockerSubsystem.admit()))
                 .whenReleased(new InstantCommand(() -> blockerSubsystem.prevent()));
-
     }
 
     @Override
     public void run() {
         scheduleRobotCentricIfAnyJoystickIsMoved();
+        pidfGrapher.update();
     }
 
     public void scheduleRobotCentricIfAnyJoystickIsMoved() {
