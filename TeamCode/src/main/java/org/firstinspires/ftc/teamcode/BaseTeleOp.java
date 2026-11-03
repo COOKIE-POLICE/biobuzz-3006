@@ -15,7 +15,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 // Two DC motor for intake.
 
 // Blocker driven by positional gobilda servo. - DONE
-// Hasif Juman Test
+
 
 // Idea for auto pathing:
 // The field is split up into four quadrants.
