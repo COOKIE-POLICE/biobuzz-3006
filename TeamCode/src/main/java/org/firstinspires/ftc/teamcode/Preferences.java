@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.math.Pose;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 
-@Configurable
 public class Preferences {
 
     // Goes to right in front of the hive, where the optimal shooting position is.
@@ -17,10 +15,8 @@ public class Preferences {
     public static GamepadKeys.Button lockOnButton = GamepadKeys.Button.Y;
     public static GamepadKeys.Trigger intakeTrigger = GamepadKeys.Trigger.RIGHT_TRIGGER;
     public static GamepadKeys.Trigger ejectTrigger = GamepadKeys.Trigger.LEFT_TRIGGER;
-    public static double outtakeP = 10;
-    public static double outtakeI = 10;
-    public static double outtakeD = 10;
     public static Pose redHiveSouthSide = new Pose(58.21093750000001, 23.655598958333343, 90);
+
 
     public static class LauncherPIDF {
         public static double p = 10;
@@ -48,6 +44,8 @@ public class Preferences {
         public static final String LAZY_SUSAN_ENCODER = "lce";
     }
 
+    // Why does lazy susan need feedforward?
+    // Well, IDk ngl
     public static class LazySusanPIDF {
         public static double p = 0.0;
         public static double i = 0.0;

@@ -17,6 +17,10 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 // Blocker driven by positional gobilda servo. - DONE
 
 
+// Idea for auto pathing:
+// The field is split up into four quadrants.
+// Depending on which quadrant the robot is at
+
 @TeleOp(name = "Base TeleOp")
 public class BaseTeleOp extends CommandOpMode {
     GamepadEx gamepad = new GamepadEx(gamepad1);
@@ -27,7 +31,7 @@ public class BaseTeleOp extends CommandOpMode {
 
     @Override
     public void initialize() {
-        followerSubsystem = new FollowerSubsystem(hardwareMap, gamepad);
+        followerSubsystem = new FollowerSubsystem(hardwareMap, gamepad, Preferences.Poses.redHiveSouth);
         outtakeSubsystem = new LauncherSubsystem(hardwareMap);
         intakeSubsystem = new IntakeSubsystem(hardwareMap);
         blockerSubsystem = new BlockerSubsystem(hardwareMap);
