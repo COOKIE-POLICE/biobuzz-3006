@@ -53,10 +53,10 @@ public class BaseTeleOp extends CommandOpMode {
         pidfGrapher = new PIDFGrapher(telemetry);
 
         gamepad.getGamepadButton(Preferences.goToPoseButton).whenPressed(new GoToPoseCommand(followerSubsystem, Preferences.redHiveSouthSide));
-        gamepad.getGamepadButton(Preferences.outtakeButton)
+        gamepad.getGamepadButton(Preferences.launchButton)
                 .toggleWhenPressed(
                         new InstantCommand(() -> outtakeSubsystem.start(), outtakeSubsystem),
-                        new InstantCommand(() -> outtakeSubsystem.start(), outtakeSubsystem)
+                        new InstantCommand(() -> outtakeSubsystem.stop(), outtakeSubsystem)
                 );
         new Trigger(() -> gamepad.getTrigger(Preferences.intakeTrigger) > 0)
                 .whenActive(new InstantCommand(() -> intakeSubsystem.start(), intakeSubsystem))

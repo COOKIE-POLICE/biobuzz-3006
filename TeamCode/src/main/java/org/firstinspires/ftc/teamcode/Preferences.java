@@ -9,7 +9,7 @@ public class Preferences {
 
     // Goes to right in front of the hive, where the optimal shooting position is.
     public static GamepadKeys.Button goToPoseButton = GamepadKeys.Button.DPAD_UP;
-    public static GamepadKeys.Button outtakeButton = GamepadKeys.Button.RIGHT_BUMPER;
+    public static GamepadKeys.Button launchButton = GamepadKeys.Button.RIGHT_BUMPER;
     public static GamepadKeys.Button blockButton = GamepadKeys.Button.A;
     // Forces turret to keep looking at the hive
     public static GamepadKeys.Button lockOnButton = GamepadKeys.Button.Y;
