@@ -40,10 +40,10 @@ public class TestServo extends OpMode {
         }
 
         if (gamepad1.dpad_left && !lastDpadLeft) {
-            currentIndex = (currentIndex - 1 + servos.size()) % servos.size();
+            currentIndex = Math.floorMod(currentIndex - 1, servos.size());
         }
         if (gamepad1.dpad_right && !lastDpadRight) {
-            currentIndex = (currentIndex + 1) % servos.size();
+            currentIndex = Math.floorMod(currentIndex + 1, servos.size());
         }
         lastDpadLeft = gamepad1.dpad_left;
         lastDpadRight = gamepad1.dpad_right;

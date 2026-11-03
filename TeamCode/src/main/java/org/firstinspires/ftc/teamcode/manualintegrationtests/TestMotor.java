@@ -78,10 +78,10 @@ public class TestMotor extends OpMode {
 
     private void handleMotorSelection() {
         if (gamepad1.dpad_left && !lastDpadLeft) {
-            currentMotorIndex = (currentMotorIndex - 1 + motors.size()) % motors.size();
+            currentMotorIndex = Math.floorMod(currentMotorIndex - 1, motors.size());
         }
         if (gamepad1.dpad_right && !lastDpadRight) {
-            currentMotorIndex = (currentMotorIndex + 1) % motors.size();
+            currentMotorIndex = Math.floorMod(currentMotorIndex + 1, motors.size());
         }
         lastDpadLeft = gamepad1.dpad_left;
         lastDpadRight = gamepad1.dpad_right;

@@ -55,10 +55,10 @@ public class TestContinuousServo extends OpMode {
 
     private void handleServoSelection() {
         if (gamepad1.dpad_left && !lastDpadLeft) {
-            currentServoIndex = (currentServoIndex - 1 + servos.size()) % servos.size();
+            currentServoIndex = Math.floorMod(currentServoIndex - 1, servos.size());
         }
         if (gamepad1.dpad_right && !lastDpadRight) {
-            currentServoIndex = (currentServoIndex + 1) % servos.size();
+            currentServoIndex = Math.floorMod(currentServoIndex + 1, servos.size());
         }
         lastDpadLeft = gamepad1.dpad_left;
         lastDpadRight = gamepad1.dpad_right;
