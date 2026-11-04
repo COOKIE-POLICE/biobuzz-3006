@@ -56,7 +56,7 @@ public class LazySusanSubsystem extends SubsystemBase {
                 Preferences.LazySusanPIDF.p,
                 Preferences.LazySusanPIDF.i,
                 Preferences.LazySusanPIDF.d,
-                0.0
+                Preferences.LazySusanPIDF.f
         );
 
         this.followerSubsystem = followerSubsystem;
