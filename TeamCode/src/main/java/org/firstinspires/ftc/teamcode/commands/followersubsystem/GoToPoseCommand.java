@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.commands.followersubsystem;
 
 import com.pedropathing.api.Paths;
 import com.pedropathing.math.Pose;
-import com.pedropathing.paths.Path;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
+
+import org.firstinspires.ftc.teamcode.subsystem.FollowerSubsystem;
 
 public class GoToPoseCommand extends FollowPathCommand {
 

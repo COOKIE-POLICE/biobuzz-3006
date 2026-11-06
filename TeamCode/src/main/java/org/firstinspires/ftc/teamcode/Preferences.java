@@ -8,14 +8,10 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 public class Preferences {
 
     // Goes to right in front of the hive, where the optimal shooting position is.
-    public static GamepadKeys.Button goToPoseButton = GamepadKeys.Button.DPAD_UP;
     public static GamepadKeys.Button launchButton = GamepadKeys.Button.RIGHT_BUMPER;
     public static GamepadKeys.Button blockButton = GamepadKeys.Button.A;
-    // Forces turret to keep looking at the hive
-    public static GamepadKeys.Button lockOnButton = GamepadKeys.Button.Y;
     public static GamepadKeys.Trigger intakeTrigger = GamepadKeys.Trigger.RIGHT_TRIGGER;
     public static GamepadKeys.Trigger ejectTrigger = GamepadKeys.Trigger.LEFT_TRIGGER;
-    public static Pose redHiveSouthSide = new Pose(58.21093750000001, 23.655598958333343, 90);
 
 
     public static class LauncherPIDF {
@@ -26,22 +22,22 @@ public class Preferences {
     }
 
     public static class DeviceNames {
-        public static final String RIGHT_FRONT_MOTOR = "rfm";
-        public static final String RIGHT_BACK_MOTOR = "rbm";
-        public static final String LEFT_REAR_MOTOR = "lbm";
-        public static final String LEFT_FRONT_MOTOR = "lfm";
+        public static final String RIGHT_FRONT_MOTOR = "Right Front Motor";
+        public static final String RIGHT_BACK_MOTOR = "Right Back Motor";
+        public static final String LEFT_REAR_MOTOR = "Left Back Motor";
+        public static final String LEFT_FRONT_MOTOR = "Left Front Motor";
+        public static final String LEFT_LAZY_SUSAN = "Left Lazy Susan";
+        public static final String OUTTAKE = "Outtake";
+        public static final String PINPOINT = "Pinpoint";
+        public static final String LIMELIGHT = "Limelight";
+        public static final String LEFT_INTAKE = "Left Intake";
+        public static final String RIGHT_INTAKE = "Right Intake";
+        public static final String BLOCKER = "Blocker";
+        public static final String LEFT_INDICATOR = "Left Indicator";
+        public static final String RIGHT_LAZY_SUSAN = "Right Lazy Susan";
 
-        public static final String LEFT_LAZY_SUSAN = "lls";
-        public static final String OUTTAKE = "lm";
-        public static final String PINPOINT_ODOMETRY = "po";
-        public static final String LIMELIGHT = "l";
-        public static final String LEFT_INTAKE = "li";
-        public static final String RIGHT_INTAKE = "ri";
-        public static final String BLOCKER = "b";
-        public static final String INDICATOR = "i";
-        public static final String RIGHT_LAZY_SUSAN = "rls";
-
-        public static final String LAZY_SUSAN_ENCODER = "lce";
+        public static final String LAZY_SUSAN_ENCODER = "Lazy Susan Encoder";
+        public static final String RIGHT_INDICATOR = "Right Indicator";
     }
 
     // Why does lazy susan need feedforward?

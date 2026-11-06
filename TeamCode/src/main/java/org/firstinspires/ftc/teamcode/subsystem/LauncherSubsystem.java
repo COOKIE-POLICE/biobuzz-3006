@@ -1,21 +1,26 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystem;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
+import org.firstinspires.ftc.teamcode.Preferences;
+import org.firstinspires.ftc.teamcode.TunedMotor;
+
 public class LauncherSubsystem extends SubsystemBase {
-    private InterpLUT interpolatedTable;
-    private enum TargetVelocityCalculationStrategy {
-        InterpolatedTable,
-        PhysicsEquation,
-    }
     private final TunedMotor tunedMotor;
     private final TargetVelocityCalculationStrategy targetVelocityCalculationStrategy = TargetVelocityCalculationStrategy.InterpolatedTable;
+    private InterpLUT interpolatedTable;
+
     public LauncherSubsystem(HardwareMap hardwareMap) {
         this.tunedMotor = new TunedMotor(hardwareMap, Preferences.DeviceNames.OUTTAKE, 0, 0, 0, 0);
         initializeInterpolatedTable();
     }
+
+    public boolean atSetPoint() {
+        return tunedMotor.atSetPoint();
+    }
+
     public void initializeInterpolatedTable() {
         interpolatedTable = new InterpLUT();
         interpolatedTable.add(0, 0);
@@ -35,11 +40,18 @@ public class LauncherSubsystem extends SubsystemBase {
         interpolatedTable.add(300.0, 3000);
         interpolatedTable.createLUT();
     }
+
     public void start() {
         tunedMotor.update(1000);
     }
+
     public void stop() {
         tunedMotor.update(0);
+    }
+
+    private enum TargetVelocityCalculationStrategy {
+        InterpolatedTable,
+        PhysicsEquation,
     }
 
 }

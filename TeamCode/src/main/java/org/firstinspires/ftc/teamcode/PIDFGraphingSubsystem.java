@@ -2,13 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class PIDFGrapher {
+public class PIDFGraphingSubsystem extends SubsystemBase {
     private final MultipleTelemetry multipleTelemetry;
 
-    public PIDFGrapher(Telemetry telemetry) {
+    public PIDFGraphingSubsystem(Telemetry telemetry) {
         multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 

@@ -1,8 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystem;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+
+import org.firstinspires.ftc.teamcode.Preferences;
 
 public class IntakeSubsystem extends SubsystemBase {
     private final DcMotorEx leftIntakeMotor;
@@ -13,8 +15,7 @@ public class IntakeSubsystem extends SubsystemBase {
         rightIntakeMotor = hardwareMap.get(DcMotorEx.class, Preferences.DeviceNames.RIGHT_INTAKE);
     }
 
-    public void start() {
-
+    public void intake() {
         leftIntakeMotor.setPower(1.0);
         rightIntakeMotor.setPower(1.0);
     }
