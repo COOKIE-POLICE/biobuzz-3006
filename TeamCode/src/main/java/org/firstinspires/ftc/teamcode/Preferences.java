@@ -13,6 +13,20 @@ public class Preferences {
     public static GamepadKeys.Trigger intakeTrigger = GamepadKeys.Trigger.RIGHT_TRIGGER;
     public static GamepadKeys.Trigger ejectTrigger = GamepadKeys.Trigger.LEFT_TRIGGER;
 
+    public static class LimelightPipelines {
+        public static int redAudience = 0;
+        public static int redOpposite = 1;
+        public static int blueAudience = 2;
+        public static int blueOpposite = 3;
+    }
+
+    public static class LimelightRollThresholds {
+        public static double activeStart = 0;
+        public static double activeEnd = 0;
+
+        public static double inactiveStart = 0;
+        public static double inactiveEnd = 0;
+    }
 
     public static class LauncherPIDF {
         public static double p = 10;

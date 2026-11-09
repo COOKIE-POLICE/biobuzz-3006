@@ -59,7 +59,8 @@ public class BaseTeleOp extends CommandOpMode {
     private BlockerSubsystem blockerSubsystem;
     private IndicatorSubsystem indicatorSubsystem;
     private LazySusanSubsystem lazySusanSubsystem;
-
+    private Area southQuadrant;
+    private Area northQuadrant;
     public BaseTeleOp(Pose hiveNorth, Pose hiveSouth) {
         this.hiveNorth = hiveNorth;
         this.hiveSouth = hiveSouth;
@@ -116,6 +117,9 @@ public class BaseTeleOp extends CommandOpMode {
         pidfGraphingSubsystem = new PIDFGraphingSubsystem(telemetry);
         indicatorSubsystem = new IndicatorSubsystem(hardwareMap);
         lazySusanSubsystem = new LazySusanSubsystem(hardwareMap, followerSubsystem);
+
+        southQuadrant = new Area(0, 0, 144, 72);
+        northQuadrant = new Area(0, 72, 144, 72);
     }
 
     @Override
