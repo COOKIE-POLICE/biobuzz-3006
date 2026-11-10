@@ -9,6 +9,7 @@ import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.button.Trigger;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
+import org.firstinspires.ftc.teamcode.commands.UpdateHiveDetectionSubsystemPipeline;
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.AdmitCommand;
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.PreventCommand;
 import org.firstinspires.ftc.teamcode.commands.followersubsystem.GoToPoseCommand;
@@ -64,6 +65,7 @@ public class BaseTeleOp extends CommandOpMode {
     private BlockerSubsystem blockerSubsystem;
     private IndicatorSubsystem indicatorSubsystem;
     private LazySusanSubsystem lazySusanSubsystem;
+    private HiveDetectionSubsystem hiveDetectionSubsystem;
 
     public BaseTeleOp(Quadrant quadrant) {
         this.quadrant = quadrant;
@@ -146,6 +148,7 @@ public class BaseTeleOp extends CommandOpMode {
         lazySusanSubsystem.setDefaultCommand(new RunCommand(() -> lazySusanSubsystem.update(), lazySusanSubsystem));
         followerSubsystem.setDefaultCommand(new RobotCentricCommand(followerSubsystem));
         pidfGraphingSubsystem.setDefaultCommand(new GraphPIDFCommand(pidfGraphingSubsystem));
+        hiveDetectionSubsystem.setDefaultCommand(new UpdateHiveDetectionSubsystemPipeline(hiveDetectionSubsystem, followerSubsystem));
     }
 
     @Override
@@ -157,6 +160,7 @@ public class BaseTeleOp extends CommandOpMode {
         pidfGraphingSubsystem = new PIDFGraphingSubsystem(telemetry);
         indicatorSubsystem = new IndicatorSubsystem(hardwareMap);
         lazySusanSubsystem = new LazySusanSubsystem(hardwareMap, followerSubsystem);
+        hiveDetectionSubsystem = new HiveDetectionSubsystem(hardwareMap, quadrant);
     }
 
     @Override
