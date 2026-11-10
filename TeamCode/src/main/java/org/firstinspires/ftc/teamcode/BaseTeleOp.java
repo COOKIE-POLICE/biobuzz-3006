@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
+import com.seattlesolvers.solverslib.command.ConditionalCommand;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.button.Trigger;
@@ -10,6 +11,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.AdmitCommand;
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.PreventCommand;
+import org.firstinspires.ftc.teamcode.commands.followersubsystem.GoToPoseCommand;
 import org.firstinspires.ftc.teamcode.commands.followersubsystem.RobotCentricCommand;
 import org.firstinspires.ftc.teamcode.commands.intakesubsystem.IntakeEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.intakesubsystem.IntakeStartCommand;
@@ -23,6 +25,7 @@ import org.firstinspires.ftc.teamcode.subsystem.IndicatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.LauncherSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.LazySusanSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.hivedetectionsubsystem.HiveDetectionSubsystem;
 
 
 // Limelight detects color and sends it into an array. Index 0 means its closest to being launched.
@@ -49,8 +52,10 @@ import org.firstinspires.ftc.teamcode.subsystem.LazySusanSubsystem;
 
 @TeleOp(name = "Base TeleOp")
 public class BaseTeleOp extends CommandOpMode {
-    protected Pose hiveSouth;
-    protected Pose hiveNorth;
+    private final Quadrant quadrant;
+    protected Pose audience;
+    protected Pose scoring;
+    protected HiveDetectionSubsystem hiveDetectionSubsystem;
     GamepadEx gamepad = new GamepadEx(gamepad1);
     private PIDFGraphingSubsystem pidfGraphingSubsystem;
     private FollowerSubsystem followerSubsystem;
@@ -59,15 +64,50 @@ public class BaseTeleOp extends CommandOpMode {
     private BlockerSubsystem blockerSubsystem;
     private IndicatorSubsystem indicatorSubsystem;
     private LazySusanSubsystem lazySusanSubsystem;
-    private Area southQuadrant;
-    private Area northQuadrant;
-    public BaseTeleOp(Pose hiveNorth, Pose hiveSouth) {
-        this.hiveNorth = hiveNorth;
-        this.hiveSouth = hiveSouth;
+
+    public BaseTeleOp(Quadrant quadrant) {
+        this.quadrant = quadrant;
+    }
+
+    private Pose getHiveAudiencePose() {
+        switch (quadrant) {
+            case BlueAudience:
+                return Preferences.HivePoses.blueAudience;
+            case BlueScoring:
+                return Preferences.HivePoses.blueAudience;
+            case RedScoring:
+                return Preferences.HivePoses.redAudience;
+            case RedAudience:
+                return Preferences.HivePoses.redAudience;
+        }
+        return new Pose(0, 0, 0);
+    }
+
+    private Pose getHiveScoringPose() {
+        switch (quadrant) {
+            case BlueAudience:
+                return Preferences.HivePoses.blueScoring;
+            case BlueScoring:
+                return Preferences.HivePoses.blueScoring;
+            case RedScoring:
+                return Preferences.HivePoses.redScoring;
+            case RedAudience:
+                return Preferences.HivePoses.redScoring;
+        }
+        return new Pose(0, 0, 0);
     }
 
     @Override
     public void preRun() {
+        gamepad.getGamepadButton(Preferences.goToOptimalScoringPoseButton)
+                .whenPressed(
+                        new ConditionalCommand(
+                                new GoToPoseCommand(followerSubsystem, audience),
+                                new GoToPoseCommand(followerSubsystem, scoring),
+                                () -> hiveDetectionSubsystem.getSide() == Side.Audience
+                        )
+                );
+
         gamepad.getGamepadButton(Preferences.launchButton)
                 .toggleWhenPressed(
                         new LauncherStartCommand(launcherSubsystem),
@@ -117,9 +157,6 @@ public class BaseTeleOp extends CommandOpMode {
         pidfGraphingSubsystem = new PIDFGraphingSubsystem(telemetry);
         indicatorSubsystem = new IndicatorSubsystem(hardwareMap);
         lazySusanSubsystem = new LazySusanSubsystem(hardwareMap, followerSubsystem);
-
-        southQuadrant = new Area(0, 0, 144, 72);
-        northQuadrant = new Area(0, 72, 144, 72);
     }
 
     @Override
