@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.Preferences;
 import org.firstinspires.ftc.teamcode.Side;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-// Why does lazy susan use follower subsystem?
 
 public class FollowerSubsystem extends SubsystemBase {
 
