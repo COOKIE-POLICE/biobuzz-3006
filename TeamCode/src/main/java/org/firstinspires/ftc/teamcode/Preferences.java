@@ -23,7 +23,7 @@ public class Preferences {
         public static Pose blueScoring = new Pose(84, 83);
     }
 
-    public static class ScoringPoses {
+    public static class LaunchPoses {
         public static Pose redAudience = new Pose(56.0, 8.0, Math.toRadians(270));
         public static Pose redScoring = new Pose(56.0, 8.0, Math.toRadians(270));
         public static Pose blueAudience = new Pose(56.0, 8.0, Math.toRadians(270));

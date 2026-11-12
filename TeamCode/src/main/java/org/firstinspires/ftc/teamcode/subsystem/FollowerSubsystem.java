@@ -13,6 +13,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.Preferences;
+import org.firstinspires.ftc.teamcode.Quadrant;
 import org.firstinspires.ftc.teamcode.Side;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
@@ -22,6 +23,7 @@ public class FollowerSubsystem extends SubsystemBase {
     public final Follower follower;
     private final GamepadEx gamepad;
     private final Pose hivePose;
+    private Quadrant startingQuadrant;
     private Side side;
 
     public FollowerSubsystem(HardwareMap hardwareMap, GamepadEx gamepad, Pose hivePose) {

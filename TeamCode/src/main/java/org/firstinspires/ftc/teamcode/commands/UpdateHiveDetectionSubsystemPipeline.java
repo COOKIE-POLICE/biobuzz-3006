@@ -4,7 +4,7 @@ import com.seattlesolvers.solverslib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Side;
 import org.firstinspires.ftc.teamcode.subsystem.FollowerSubsystem;
-import org.firstinspires.ftc.teamcode.subsystem.hivedetectionsubsystem.HiveDetectionSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.HiveDetectionSubsystem;
 
 public class UpdateHiveDetectionSubsystemPipeline extends CommandBase {
     private final FollowerSubsystem followerSubsystem;

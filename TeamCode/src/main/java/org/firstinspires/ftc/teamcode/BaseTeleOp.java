@@ -3,16 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.command.CommandOpMode;
-import com.seattlesolvers.solverslib.command.ConditionalCommand;
 import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.button.Trigger;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
+import org.firstinspires.ftc.teamcode.commands.GoToOptimalLaunchPoseCommand;
 import org.firstinspires.ftc.teamcode.commands.UpdateHiveDetectionSubsystemPipeline;
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.AdmitCommand;
 import org.firstinspires.ftc.teamcode.commands.blockersubsystem.PreventCommand;
-import org.firstinspires.ftc.teamcode.commands.followersubsystem.GoToPoseCommand;
 import org.firstinspires.ftc.teamcode.commands.followersubsystem.RobotCentricCommand;
 import org.firstinspires.ftc.teamcode.commands.intakesubsystem.IntakeEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.intakesubsystem.IntakeStartCommand;
@@ -22,11 +21,11 @@ import org.firstinspires.ftc.teamcode.commands.launchersubsystem.LauncherStopCom
 import org.firstinspires.ftc.teamcode.commands.pidfgraphingsubsystem.GraphPIDFCommand;
 import org.firstinspires.ftc.teamcode.subsystem.BlockerSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.FollowerSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.HiveDetectionSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.IndicatorSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.LauncherSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.LazySusanSubsystem;
-import org.firstinspires.ftc.teamcode.subsystem.hivedetectionsubsystem.HiveDetectionSubsystem;
 
 
 // Limelight detects color and sends it into an array. Index 0 means its closest to being launched.
@@ -53,7 +52,7 @@ import org.firstinspires.ftc.teamcode.subsystem.hivedetectionsubsystem.HiveDetec
 
 @TeleOp(name = "Base TeleOp")
 public class BaseTeleOp extends CommandOpMode {
-    private final Quadrant quadrant;
+    private final Quadrant startingQuadrant;
     protected Pose audience;
     protected Pose scoring;
     protected HiveDetectionSubsystem hiveDetectionSubsystem;
@@ -65,14 +64,13 @@ public class BaseTeleOp extends CommandOpMode {
     private BlockerSubsystem blockerSubsystem;
     private IndicatorSubsystem indicatorSubsystem;
     private LazySusanSubsystem lazySusanSubsystem;
-    private HiveDetectionSubsystem hiveDetectionSubsystem;
 
     public BaseTeleOp(Quadrant quadrant) {
-        this.quadrant = quadrant;
+        this.startingQuadrant = quadrant;
     }
 
-    private Pose getHiveAudiencePose() {
-        switch (quadrant) {
+    private Pose getAudienceSideHivePose() {
+        switch (startingQuadrant) {
             case BlueAudience:
                 return Preferences.HivePoses.blueAudience;
             case BlueScoring:
@@ -85,8 +83,8 @@ public class BaseTeleOp extends CommandOpMode {
         return new Pose(0, 0, 0);
     }
 
-    private Pose getHiveScoringPose() {
-        switch (quadrant) {
+    private Pose getScoringSideHivePose() {
+        switch (startingQuadrant) {
             case BlueAudience:
                 return Preferences.HivePoses.blueScoring;
             case BlueScoring:
@@ -103,11 +101,7 @@ public class BaseTeleOp extends CommandOpMode {
     public void preRun() {
         gamepad.getGamepadButton(Preferences.goToOptimalScoringPoseButton)
                 .whenPressed(
-                        new ConditionalCommand(
-                                new GoToPoseCommand(followerSubsystem, audience),
-                                new GoToPoseCommand(followerSubsystem, scoring),
-                                () -> hiveDetectionSubsystem.getSide() == Side.Audience
-                        )
+                        new GoToOptimalLaunchPoseCommand(followerSubsystem, hiveDetectionSubsystem)
                 );
 
         gamepad.getGamepadButton(Preferences.launchButton)
@@ -160,7 +154,7 @@ public class BaseTeleOp extends CommandOpMode {
         pidfGraphingSubsystem = new PIDFGraphingSubsystem(telemetry);
         indicatorSubsystem = new IndicatorSubsystem(hardwareMap);
         lazySusanSubsystem = new LazySusanSubsystem(hardwareMap, followerSubsystem);
-        hiveDetectionSubsystem = new HiveDetectionSubsystem(hardwareMap, quadrant);
+        hiveDetectionSubsystem = new HiveDetectionSubsystem(hardwareMap, startingQuadrant);
     }
 
     @Override
